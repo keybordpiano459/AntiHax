@@ -1,0 +1,14 @@
+name: AntiHax
+main: me.KeybordPiano459.AntiHax.AntiHax
+version: 0.1b
+description: Stopping hacks on Minecraft.
+author: KeybordPiano459
+permissions:
+  antihax.*:
+    description: Access to all AntiHax stuff
+    default: op
+    children:
+      antihax.notify: true
+  antihax.notify:
+    description: Get notified when someone hacks
+    default: op
