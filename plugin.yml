@@ -8,19 +8,29 @@ permissions:
     description: Access to all AntiHax stuff
     default: op
     children:
+      antihax.check.*: true
       antihax.notify: true
       antihax.update: true
-  antihax.check.*:
-    description: Access to all checks
-    default: op
-    children:
-      antihax.check.reach: true
-  antihax.check.reach:
-    description: Exempt from reach checks
-    default: op
   antihax.notify:
     description: Get notified when someone hacks
     default: op
   antihax.update:
     description: Get notified when there's an update
+    default: op
+
+antihax.check.*:
+    description: Access to all checks
+    default: op
+    children:
+      antihax.check.sprintnofood: true
+      antihax.check.reach: true
+      antihax.check.walkonwater: true
+  antihax.check.sprintnofood:
+    description: Exempt from sprint checks
+    default: op
+  antihax.check.reach:
+    description: Exempt from reach checks
+    default: op
+  antihax.check.walkonwater:
+    description: Exempt from walk on water checks
     default: op
