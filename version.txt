@@ -1,1 +1,3 @@
 0.1b
+
+# This is just for the update notifier.
