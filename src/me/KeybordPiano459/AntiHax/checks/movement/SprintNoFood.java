@@ -10,6 +10,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerToggleSprintEvent;
 
 public class SprintNoFood implements Listener {
+	private static AntiHax AntiHax = null;
 	AntiHax plugin;
     public SprintNoFood(AntiHax plugin) {
         this.plugin = plugin;
@@ -22,6 +23,7 @@ public class SprintNoFood implements Listener {
 			if (6 >= food) {
 				event.setCancelled(true);
 				Check.PlayerKick(player, plugin, "Don't sprint without enough food!", "tried to sprint without enough food!");
+				AntiHax.violate(player, 10);
 			}
 		}
 	}

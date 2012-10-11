@@ -6,30 +6,37 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import me.KeybordPiano459.AntiHax.checks.blockevents.Reach;
 import me.KeybordPiano459.AntiHax.checks.movement.SprintNoFood;
 import me.KeybordPiano459.AntiHax.checks.movement.WalkOnWater;
+import me.KeybordPiano459.AntiHax.commands.CommandCheck;
 import me.KeybordPiano459.AntiHax.util.Metrics;
 import me.KeybordPiano459.AntiHax.util.UpdateEvent;
 import me.KeybordPiano459.AntiHax.util.UpdateNotifier;
 
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class AntiHax extends JavaPlugin {
 	
 	public static boolean update;
-	public int version = Integer.parseInt(Bukkit.getServer().getPluginManager().getPlugin("AntiHax").getDescription().getVersion());
+	public String version = Bukkit.getServer().getPluginManager().getPlugin("AntiHax").getDescription().getVersion();
 	private Date now = new Date();
 	private SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+	public Map<String, Integer> playerHackAmt = new HashMap<String, Integer>();
 	
 	public void onEnable() {
 		getLogger().info("AntiHax " + version + " has been enabled!");
 		
 		registerEvents();
 		UpdateNotifier.updateNotifier();
+		
+		this.getCommand("check").setExecutor(new CommandCheck(this));
 		
 		try {
 		    Metrics metrics = new Metrics(this);
@@ -59,53 +66,33 @@ public class AntiHax extends JavaPlugin {
 		if(update){pm.registerEvents(new UpdateEvent(),this);}
 	}
 	
-	public void logCheat(String message) {
-		try {
-			File dataFolder = getDataFolder();
-			if(!dataFolder.exists()) {
-            	dataFolder.mkdir();
-			}
-			File saveTo = new File(getDataFolder(), "hack.txt");
-			if (!saveTo.exists()) {
-				saveTo.createNewFile();
-			}
-			FileWriter fw = new FileWriter(saveTo, true);
-			PrintWriter pw = new PrintWriter(fw);
-			pw.println("[" + format.format(now) + "] " + message);
-			pw.flush();
-			pw.close();
-		} catch (IOException e) {
-			e.printStackTrace();
+	public void violate(Player player, int violation) {
+		playerHackAmt.put(player.getName(), playerHackAmt.get(player.getName()) - violation);
+		if (playerHackAmt.get(player.getName()) == 0) {
+			 player.kickPlayer("You have hacked too much.");
+			 player.setBanned(true);
 		}
+	}
+	
+	public void logCheat(String message) {
+		logToFile(message, "cheat.txt");
 	}
 	
 	public void logAction(String message) {
-		try {
-			File dataFolder = getDataFolder();
-			if(!dataFolder.exists()) {
-            	dataFolder.mkdir();
-			}
-			File saveTo = new File(getDataFolder(), "action.txt");
-			if (!saveTo.exists()) {
-				saveTo.createNewFile();
-			}
-			FileWriter fw = new FileWriter(saveTo, true);
-			PrintWriter pw = new PrintWriter(fw);
-			pw.println("[" + format.format(now) + "] " + message);
-			pw.flush();
-			pw.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		logToFile(message, "action.txt");
 	}
 	
 	public void logPlayerLogin(String message) {
+		logToFile(message, "login.txt");
+	}
+	
+	public void logToFile(String message, String filename) {
 		try {
 			File dataFolder = getDataFolder();
 			if(!dataFolder.exists()) {
             	dataFolder.mkdir();
 			}
-			File saveTo = new File(getDataFolder(), "login.txt");
+			File saveTo = new File(getDataFolder(), filename);
 			if (!saveTo.exists()) {
 				saveTo.createNewFile();
 			}
