@@ -15,4 +15,6 @@ Report Bugs Here:
 
 AntiHax does exactly what it says in the name, it stops hacks. There are many hacks that it stops, which are listed below (we need more)
   - Reach
+  - Walk on Water
+  - Sprint Without Food
   - That's it for now...
