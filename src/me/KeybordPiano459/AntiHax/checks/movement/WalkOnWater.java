@@ -13,7 +13,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 
 public class WalkOnWater implements Listener {
-	private static AntiHax AntiHax = null;
+	//private static AntiHax AntiHax = null;
 	AntiHax plugin;
     public WalkOnWater(AntiHax plugin) {
         this.plugin = plugin;
@@ -32,7 +32,7 @@ public class WalkOnWater implements Listener {
 							event.setCancelled(true);
 							Check.PlayerKick(player, plugin, "Don't walk on water!", "tried to walk on water!");
 							plugin.logCheat(player.getDisplayName() + " walked on water!");
-							AntiHax.violate(player, 20);
+							//AntiHax.violate(player, 20);
 						}
 					}
 				}, 20L);

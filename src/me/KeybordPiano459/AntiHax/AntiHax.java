@@ -12,12 +12,10 @@ import java.util.Map;
 import me.KeybordPiano459.AntiHax.checks.blockevents.Reach;
 import me.KeybordPiano459.AntiHax.checks.movement.SprintNoFood;
 import me.KeybordPiano459.AntiHax.checks.movement.WalkOnWater;
-import me.KeybordPiano459.AntiHax.commands.CommandCheck;
 import me.KeybordPiano459.AntiHax.util.Metrics;
 import me.KeybordPiano459.AntiHax.util.UpdateEvent;
 import me.KeybordPiano459.AntiHax.util.UpdateNotifier;
 
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -25,18 +23,16 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class AntiHax extends JavaPlugin {
 	
 	public static boolean update;
-	public String version = Bukkit.getServer().getPluginManager().getPlugin("AntiHax").getDescription().getVersion();
 	private Date now = new Date();
 	private SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 	public Map<String, Integer> playerHackAmt = new HashMap<String, Integer>();
 	
 	public void onEnable() {
-		getLogger().info("AntiHax " + version + " has been enabled!");
+		getLogger().info("AntiHax 0.2b has been enabled!");
 		
+		//getCommands();
 		registerEvents();
 		UpdateNotifier.updateNotifier();
-		
-		this.getCommand("check").setExecutor(new CommandCheck(this));
 		
 		try {
 		    Metrics metrics = new Metrics(this);
@@ -47,7 +43,7 @@ public class AntiHax extends JavaPlugin {
 	}
 	
 	public void onDisable() {
-		getLogger().info("AntiHax " + version + " has been disabled.");
+		getLogger().info("AntiHax 0.2b has been disabled.");
 	}
 	
 	public void registerEvents() {
@@ -65,6 +61,14 @@ public class AntiHax extends JavaPlugin {
 		
 		if(update){pm.registerEvents(new UpdateEvent(),this);}
 	}
+	
+	/*public void getCommands() {
+		getCommand("check", new CommandCheck(this));
+	}
+
+	public void getCommand(String command, CommandExecutor commandexecutor) {
+		Bukkit.getServer().getPluginCommand(command).setExecutor(commandexecutor);
+	}*/
 	
 	public void violate(Player player, int violation) {
 		playerHackAmt.put(player.getName(), playerHackAmt.get(player.getName()) - violation);

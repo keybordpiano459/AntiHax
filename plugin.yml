@@ -1,6 +1,6 @@
 name: AntiHax
 main: me.KeybordPiano459.AntiHax.AntiHax
-version: 0.1b
+version: 0.2b
 description: Stopping hacks on Minecraft.
 author: KeybordPiano459
 permissions:
@@ -17,8 +17,7 @@ permissions:
   antihax.update:
     description: Get notified when there's an update
     default: op
-
-antihax.check.*:
+  antihax.check.*:
     description: Access to all checks
     default: op
     children:

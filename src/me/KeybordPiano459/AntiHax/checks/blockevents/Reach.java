@@ -13,7 +13,7 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
 public class Reach implements Listener {
-	private static AntiHax AntiHax = null;
+	//private static AntiHax AntiHax = null;
 	AntiHax plugin;
     public Reach(AntiHax plugin) {
         this.plugin = plugin;
@@ -27,9 +27,9 @@ public class Reach implements Listener {
 			if (distance > 5) {
 				event.setCancelled(true);
 				Check.PlayerKick(player, plugin, "Don't reach!", "tried to reach");
-				AntiHax.violate(player, 5);
+				//AntiHax.violate(player, 5);
 			} else {
-				plugin.playerHackAmt.put(player.getName(), plugin.playerHackAmt.get(player.getName()) + 1);
+				//plugin.playerHackAmt.put(player.getName(), plugin.playerHackAmt.get(player.getName()) + 1);
 			}
 		}
 	}
@@ -43,9 +43,9 @@ public class Reach implements Listener {
 			if (distance > 5) {
 				event.setCancelled(true);
 				Check.PlayerKick(player, plugin, "Don't reach!", "tried to reach");
-				AntiHax.violate(player, 5);
+				//AntiHax.violate(player, 5);
 			} else {
-				plugin.playerHackAmt.put(player.getName(), plugin.playerHackAmt.get(player.getName()) + 1);
+				//plugin.playerHackAmt.put(player.getName(), plugin.playerHackAmt.get(player.getName()) + 1);
 			}
 		}
 	}
@@ -57,9 +57,9 @@ public class Reach implements Listener {
 			if (distance > 5) {
 				event.setCancelled(true);
 				Check.PlayerKick(player, plugin, "Don't reach!", "tried to reach");
-				AntiHax.violate(player, 5);
+				//AntiHax.violate(player, 5);
 			} else {
-				plugin.playerHackAmt.put(player.getName(), plugin.playerHackAmt.get(player.getName()) + 1);
+				//plugin.playerHackAmt.put(player.getName(), plugin.playerHackAmt.get(player.getName()) + 1);
 			}
 		}
 	}
