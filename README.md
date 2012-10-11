@@ -1,4 +1,4 @@
-AntiHax 0.1b README
+AntiHax 0.2b README
 =============================
 
 Websites:
