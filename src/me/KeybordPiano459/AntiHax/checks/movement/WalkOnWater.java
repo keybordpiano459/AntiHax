@@ -12,7 +12,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 
-public class WalkOnWater implements Listener {
+public class WalkOnWater extends Check implements Listener {
 	//private static AntiHax AntiHax = null;
 	AntiHax plugin;
     public WalkOnWater(AntiHax plugin) {
@@ -30,7 +30,7 @@ public class WalkOnWater implements Listener {
 					public void run() {
 						if (block == Material.WATER) {
 							event.setCancelled(true);
-							Check.PlayerKick(player, plugin, "Don't walk on water!", "tried to walk on water!");
+							PlayerKick(player, plugin, "Don't walk on water!", "tried to walk on water!");
 							plugin.logCheat(player.getDisplayName() + " walked on water!");
 							//AntiHax.violate(player, 20);
 						}
