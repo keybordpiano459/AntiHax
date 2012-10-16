@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import me.KeybordPiano459.AntiHax.checks.blockevents.Reach;
+import me.KeybordPiano459.AntiHax.checks.movement.Flight;
 import me.KeybordPiano459.AntiHax.checks.movement.SprintNoFood;
 import me.KeybordPiano459.AntiHax.checks.movement.WalkOnWater;
 import me.KeybordPiano459.AntiHax.util.Metrics;
@@ -28,7 +29,7 @@ public class AntiHax extends JavaPlugin {
 	public Map<String, Integer> playerHackAmt = new HashMap<String, Integer>();
 	
 	public void onEnable() {
-		getLogger().info("AntiHax 0.2b has been enabled!");
+		getLogger().info("AntiHax 0.21b has been enabled!");
 		
 		//getCommands();
 		registerEvents();
@@ -43,7 +44,7 @@ public class AntiHax extends JavaPlugin {
 	}
 	
 	public void onDisable() {
-		getLogger().info("AntiHax 0.2b has been disabled.");
+		getLogger().info("AntiHax 0.21b has been disabled.");
 	}
 	
 	public void registerEvents() {
@@ -56,6 +57,7 @@ public class AntiHax extends JavaPlugin {
 		pm.registerEvents(new Reach(this), this);
 		
 		//Movement Checks
+		pm.registerEvents(new Flight(this), this);
 		pm.registerEvents(new WalkOnWater(this), this);
 		pm.registerEvents(new SprintNoFood(this), this);
 		

@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<project>
+	<name>AntiHax</name>
+	<version>0.21b</version>
+	<url>http://keybordpiano459.info/antihax/</url>
+	<description>Stopping those hacks on your Bukkit server</description>
+	<dependency>craftbukkit1.3.2-R1.0</dependency>
+	<license>Attribution 3.0 Unported License</license>
+	<sites>
+		<site>http://dev.bukkit.org/server-mods/antihax/</site>
+		<site>http://mcstats.org/plugin/AntiHax/</site>
+		<site>https://github.com/keybordpiano459/AntiHax/</site>
+	</sites>
+</project>
