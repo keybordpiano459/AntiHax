@@ -32,6 +32,7 @@ public class WalkOnWater extends Check implements Listener {
 							event.setCancelled(true);
 							PlayerKick(player, plugin, "Don't walk on water!", "tried to walk on water!");
 							plugin.logCheat(player.getDisplayName() + " walked on water!");
+							AntiHax.walkonwater++;
 							//AntiHax.violate(player, 20);
 						}
 					}

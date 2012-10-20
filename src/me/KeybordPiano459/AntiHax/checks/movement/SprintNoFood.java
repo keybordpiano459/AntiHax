@@ -3,6 +3,7 @@ package me.KeybordPiano459.AntiHax.checks.movement;
 import me.KeybordPiano459.AntiHax.AntiHax;
 import me.KeybordPiano459.AntiHax.checks.Check;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -16,14 +17,21 @@ public class SprintNoFood extends Check implements Listener {
         this.plugin = plugin;
     }
 	@EventHandler(priority = EventPriority.HIGHEST)
-	public void onSprint(PlayerToggleSprintEvent event) {
-		Player player = event.getPlayer();
-		int food = player.getFoodLevel();
+	public void onSprint(final PlayerToggleSprintEvent event) {
+		final Player player = event.getPlayer();
+		final int food = player.getFoodLevel();
 		if (!player.hasPermission("antihax.check.sprintnofood")) {
 			if (6 >= food) {
-				event.setCancelled(true);
-				PlayerKick(player, plugin, "Don't sprint without enough food!", "tried to sprint without enough food!");
-				//AntiHax.violate(player, 10);
+				Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
+					public void run() {
+						if (6 >= food) {
+							event.setCancelled(true);
+							PlayerKick(player, plugin, "Don't sprint without enough food!", "tried to sprint without enough food!");
+							AntiHax.sprintnofood++;
+							//AntiHax.violate(player, 10);
+						}
+					}
+				}, 200L);
 			}
 		}
 	}
