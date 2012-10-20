@@ -10,6 +10,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import me.KeybordPiano459.AntiHax.checks.blockevents.Reach;
+import me.KeybordPiano459.AntiHax.checks.chat.Cursing;
+import me.KeybordPiano459.AntiHax.checks.fight.HitSelf;
+import me.KeybordPiano459.AntiHax.checks.mods.CJB;
+import me.KeybordPiano459.AntiHax.checks.mods.REI;
+import me.KeybordPiano459.AntiHax.checks.mods.Zombe;
 import me.KeybordPiano459.AntiHax.checks.movement.Flight;
 import me.KeybordPiano459.AntiHax.checks.movement.SprintNoFood;
 import me.KeybordPiano459.AntiHax.checks.movement.WalkOnWater;
@@ -17,6 +22,7 @@ import me.KeybordPiano459.AntiHax.util.Metrics;
 import me.KeybordPiano459.AntiHax.util.UpdateEvent;
 import me.KeybordPiano459.AntiHax.util.UpdateNotifier;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -24,16 +30,26 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class AntiHax extends JavaPlugin {
 	
 	public static boolean update;
+	public Map<String, Integer> playerHackAmt = new HashMap<String, Integer>();
 	private Date now = new Date();
 	private SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-	public Map<String, Integer> playerHackAmt = new HashMap<String, Integer>();
+	
+	public static int cursing;
+	public static int flight;
+	public static int hitself;
+	public static int reach;
+	public static int sprintnofood;
+	public static int walkonwater;
 	
 	public void onEnable() {
-		getLogger().info("AntiHax 0.21b has been enabled!");
+		getLogger().info("AntiHax 0.3b has been enabled!");
 		
-		//getCommands();
 		registerEvents();
 		UpdateNotifier.updateNotifier();
+		Bukkit.getServer().getPluginCommand("spy").setExecutor(new Spying());
+		
+		getConfig().options().copyDefaults(true);
+		saveConfig();
 		
 		try {
 		    Metrics metrics = new Metrics(this);
@@ -44,7 +60,7 @@ public class AntiHax extends JavaPlugin {
 	}
 	
 	public void onDisable() {
-		getLogger().info("AntiHax 0.21b has been disabled.");
+		getLogger().info("AntiHax 0.3b has been disabled.");
 	}
 	
 	public void registerEvents() {
@@ -56,6 +72,20 @@ public class AntiHax extends JavaPlugin {
 		//Block Event Checks
 		pm.registerEvents(new Reach(this), this);
 		
+		//Chat
+		pm.registerEvents(new Cursing(this), this);
+		
+		//Fight Checks
+		pm.registerEvents(new HitSelf(this), this);
+		
+		//Misc
+		if(TagAPI()){pm.registerEvents(new AdminTag(), this);}
+		
+		//Mods
+		pm.registerEvents(new CJB(), this);
+		pm.registerEvents(new REI(), this);
+		pm.registerEvents(new Zombe(), this);
+		
 		//Movement Checks
 		pm.registerEvents(new Flight(this), this);
 		pm.registerEvents(new WalkOnWater(this), this);
@@ -64,19 +94,19 @@ public class AntiHax extends JavaPlugin {
 		if(update){pm.registerEvents(new UpdateEvent(),this);}
 	}
 	
-	/*public void getCommands() {
-		getCommand("check", new CommandCheck(this));
-	}
-
-	public void getCommand(String command, CommandExecutor commandexecutor) {
-		Bukkit.getServer().getPluginCommand(command).setExecutor(commandexecutor);
-	}*/
-	
 	public void violate(Player player, int violation) {
 		playerHackAmt.put(player.getName(), playerHackAmt.get(player.getName()) - violation);
 		if (playerHackAmt.get(player.getName()) == 0) {
 			 player.kickPlayer("You have hacked too much.");
 			 player.setBanned(true);
+		}
+	}
+	
+	public boolean TagAPI() {
+		if (getServer().getPluginManager().getPlugin("TagAPI") == null) {
+			return false;
+		} else {
+			return true;
 		}
 	}
 	
