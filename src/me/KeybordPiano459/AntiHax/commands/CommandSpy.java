@@ -1,4 +1,4 @@
-package me.KeybordPiano459.AntiHax;
+package me.KeybordPiano459.AntiHax.commands;
 
 import java.util.logging.Logger;
 
@@ -9,9 +9,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class Spying implements CommandExecutor {
-
-	@Override
+public class CommandSpy implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 		Logger log = Logger.getLogger("Minecraft");
 		if (cmd.getName().equalsIgnoreCase("spy")) {

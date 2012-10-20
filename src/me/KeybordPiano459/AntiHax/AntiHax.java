@@ -18,6 +18,7 @@ import me.KeybordPiano459.AntiHax.checks.mods.Zombe;
 import me.KeybordPiano459.AntiHax.checks.movement.Flight;
 import me.KeybordPiano459.AntiHax.checks.movement.SprintNoFood;
 import me.KeybordPiano459.AntiHax.checks.movement.WalkOnWater;
+import me.KeybordPiano459.AntiHax.commands.CommandSpy;
 import me.KeybordPiano459.AntiHax.util.Metrics;
 import me.KeybordPiano459.AntiHax.util.UpdateEvent;
 import me.KeybordPiano459.AntiHax.util.UpdateNotifier;
@@ -46,7 +47,7 @@ public class AntiHax extends JavaPlugin {
 		
 		registerEvents();
 		UpdateNotifier.updateNotifier();
-		Bukkit.getServer().getPluginCommand("spy").setExecutor(new Spying());
+		Bukkit.getServer().getPluginCommand("spy").setExecutor(new CommandSpy());
 		
 		getConfig().options().copyDefaults(true);
 		saveConfig();
