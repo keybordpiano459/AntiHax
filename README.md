@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-AntiHax 0.21b README
-=======
 AntiHax 0.24b README
->>>>>>> 0.24b
 =============================
 
 Websites:
@@ -24,9 +20,6 @@ Hacks Blocked:
   - Walk on Water
   - Sprinting Without Food
   - Flying
-<<<<<<< HEAD
-  - That's it for now...
-=======
   - Hitting Yourself
   - Cursing (Chat | Next Update)
 
@@ -34,4 +27,3 @@ Mods Blocked:
   - CJB
   - REI's Minimap
   - Zombe's Modpack
->>>>>>> 0.24b
