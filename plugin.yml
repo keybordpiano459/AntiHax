@@ -1,39 +1,74 @@
 name: AntiHax
 main: me.KeybordPiano459.AntiHax.AntiHax
-version: 0.21b
+version: 0.24b
 description: Stopping hacks on Minecraft.
 author: KeybordPiano459
+softdepend: [TagAPI]
+commands:
+  spy:
+    description: Spy on Another Player
+    permission: antihax.spy
 permissions:
   antihax.*:
     description: Access to all AntiHax stuff
     default: op
     children:
+      antihax.admin: true
       antihax.check.*: true
+      antihax.mod.*: true
       antihax.notify: true
+      antihax.spy: true
       antihax.update: true
+  antihax.admin:
+    description: Have a red nametag
+    default: op
   antihax.notify:
     description: Get notified when someone hacks
+    default: op
+  antihax.spy:
+    description: Access to /spy
     default: op
   antihax.update:
     description: Get notified when there's an update
     default: op
+
   antihax.check.*:
     description: Access to all checks
     default: op
     children:
       antihax.check.fly: true
-      antihax.check.sprintnofood: true
+      antihax.check.hitself: true
       antihax.check.reach: true
+      antihax.check.sprintnofood: true
       antihax.check.walkonwater: true
   antihax.check.fly:
     description: Exempt from flight checks
     default: op
-  antihax.check.sprintnofood:
-    description: Exempt from sprint checks
+  antihax.check.hitself:
+    description: Exempt from hit self checks
     default: op
   antihax.check.reach:
     description: Exempt from reach checks
     default: op
+  antihax.check.sprintnofood:
+    description: Exempt from sprint checks
+    default: op
   antihax.check.walkonwater:
     description: Exempt from walk on water checks
     default: op
+
+  antihax.mod.*:
+    description: Access to all mods
+    default: op
+    children:
+      antihax.mod.cjb: true
+      antihax.mod.rei: true
+      antihax.mod.zombe: true
+  antihax.mod.cjb:
+    description: Access to use CJB
+    default: op
+  antihax.mod.rei:
+    description: Access to use REI's Minimap
+    default: op
+  antihax.mod.zombe:
+    description: Access to use Zombe Modpack
