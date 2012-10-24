@@ -4,6 +4,7 @@ import me.KeybordPiano459.AntiHax.AntiHax;
 import me.KeybordPiano459.AntiHax.checks.Check;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -13,7 +14,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 
 public class WalkOnWater extends Check implements Listener {
-	//private static AntiHax AntiHax = null;
 	AntiHax plugin;
     public WalkOnWater(AntiHax plugin) {
         this.plugin = plugin;
@@ -30,10 +30,7 @@ public class WalkOnWater extends Check implements Listener {
 					public void run() {
 						if (block == Material.WATER) {
 							event.setCancelled(true);
-							PlayerKick(player, plugin, "Don't walk on water!", "tried to walk on water!");
-							plugin.logCheat(player.getDisplayName() + " walked on water!");
-							AntiHax.walkonwater++;
-							//AntiHax.violate(player, 20);
+							TellPlayer(player, "[" + ChatColor.RED + "AntiHax" + ChatColor.RESET + "] You walked on water!");
 						}
 					}
 				}, 20L);

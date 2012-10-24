@@ -3,6 +3,7 @@ package me.KeybordPiano459.AntiHax.checks.blockevents;
 import me.KeybordPiano459.AntiHax.AntiHax;
 import me.KeybordPiano459.AntiHax.checks.Check;
 
+import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -14,7 +15,6 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
 public class Reach extends Check implements Listener {
-	//private static AntiHax AntiHax = null;
 	AntiHax plugin;
     public Reach(AntiHax plugin) {
         this.plugin = plugin;
@@ -27,11 +27,7 @@ public class Reach extends Check implements Listener {
 		if (!player.hasPermission("antihax.check.reach")) {
 			if (distance > 6 && player.getGameMode() != GameMode.CREATIVE) {
 				event.setCancelled(true);
-				Check.PlayerKick(player, plugin, "Don't reach!", "tried to reach");
-				AntiHax.reach++;
-				//AntiHax.violate(player, 5);
-			} else {
-				//plugin.playerHackAmt.put(player.getName(), plugin.playerHackAmt.get(player.getName()) + 1);
+				TellPlayer(player, "[" + ChatColor.RED + "AntiHax" + ChatColor.RESET + "] You reached too far!");
 			}
 		}
 	}
@@ -44,11 +40,7 @@ public class Reach extends Check implements Listener {
 		if (!player.hasPermission("antihax.check.reach")) {
 			if (distance > 6 && player.getGameMode() != GameMode.CREATIVE) {
 				event.setCancelled(true);
-				Check.PlayerKick(player, plugin, "Don't reach!", "tried to reach");
-				AntiHax.reach++;
-				//AntiHax.violate(player, 5);
-			} else {
-				//plugin.playerHackAmt.put(player.getName(), plugin.playerHackAmt.get(player.getName()) + 1);
+				TellPlayer(player, "[" + ChatColor.RED + "AntiHax" + ChatColor.RESET + "] You reached too far!");
 			}
 		}
 	}
@@ -59,11 +51,7 @@ public class Reach extends Check implements Listener {
 		if (!player.hasPermission("antihax.check.reach")) {
 			if (distance > 6 && player.getGameMode() != GameMode.CREATIVE) {
 				event.setCancelled(true);
-				PlayerKick(player, plugin, "Don't reach!", "tried to reach");
-				AntiHax.reach++;
-				//AntiHax.violate(player, 5);
-			} else {
-				//plugin.playerHackAmt.put(player.getName(), plugin.playerHackAmt.get(player.getName()) + 1);
+				TellPlayer(player, "[" + ChatColor.RED + "AntiHax" + ChatColor.RESET + "] You reached too far!");
 			}
 		}
 	}

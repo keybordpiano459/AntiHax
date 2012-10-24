@@ -1,5 +1,6 @@
 package me.KeybordPiano459.AntiHax.checks.fight;
 
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -23,8 +24,7 @@ public class HitSelf extends Check implements Listener {
 		if (!player.hasPermission("antihax.check.hitself")) {
 			if (attacker == player && victim == attacker) {
 				event.setCancelled(true);
-				PlayerKick(player, plugin, "Don't Hit Yourself!", "tried to hit himself");
-				AntiHax.hitself++;
+				TellPlayer(player, "[" + ChatColor.RED + "AntiHax" + ChatColor.RESET + "] You tried to hit yourself!");
 			}
 		}
 	}

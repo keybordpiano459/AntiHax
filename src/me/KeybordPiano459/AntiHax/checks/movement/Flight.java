@@ -23,7 +23,6 @@ public class Flight extends Check implements Listener {
 			if (player.isFlying() && player.getGameMode() != GameMode.CREATIVE) {
 				event.setCancelled(true);
 				PlayerKick(player, plugin, "No Flying Allowed!", "tried to fly!");
-				AntiHax.flight++;
 			}
 		}
 	}
@@ -35,7 +34,6 @@ public class Flight extends Check implements Listener {
 			if (event.isFlying() && player.getGameMode() != GameMode.CREATIVE) {
 				event.setCancelled(true);
 				PlayerKick(player, plugin, "No Flying Allowed!", "tried to fly!");
-				AntiHax.flight++;
 			}
 		}
 	}
