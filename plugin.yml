@@ -1,13 +1,15 @@
 name: AntiHax
 main: me.KeybordPiano459.AntiHax.AntiHax
-version: 0.24b
+version: 0.3b
 description: Stopping hacks on Minecraft.
 author: KeybordPiano459
 softdepend: [TagAPI]
-commands:
-  spy:
-    description: Spy on Another Player
-    permission: antihax.spy
+#commands:
+#  check:
+#    description: Check Someone's Violation Amount
+#  spy:
+#    description: Spy on Another Player
+#    permission: antihax.spy
 permissions:
   antihax.*:
     description: Access to all AntiHax stuff
@@ -17,7 +19,7 @@ permissions:
       antihax.check.*: true
       antihax.mod.*: true
       antihax.notify: true
-      antihax.spy: true
+#      antihax.spy: true
       antihax.update: true
   antihax.admin:
     description: Have a red nametag
@@ -25,9 +27,9 @@ permissions:
   antihax.notify:
     description: Get notified when someone hacks
     default: op
-  antihax.spy:
-    description: Access to /spy
-    default: op
+#  antihax.spy:
+#    description: Access to /spy
+#    default: op
   antihax.update:
     description: Get notified when there's an update
     default: op
@@ -36,16 +38,44 @@ permissions:
     description: Access to all checks
     default: op
     children:
+      antihax.check.autoenchant: true
+      antihax.check.curse: true
+      antihax.check.dropinv: true
       antihax.check.fly: true
+      antihax.check.forcefield: true
+      antihax.check.fullbright: true
+      antihax.check.highjump: true
       antihax.check.hitself: true
+      antihax.check.nuker: true
       antihax.check.reach: true
       antihax.check.sprintnofood: true
       antihax.check.walkonwater: true
+  antihax.check.autoenchant:
+    description: Exempt from auto-enchant checks
+    default: op
+  antihax.check.curse:
+    description: Exempt from cursing checks
+    default: op
+  antihax.check.dropinv:
+    description: Exempt from inv-drop checks
+    default: op
   antihax.check.fly:
     description: Exempt from flight checks
     default: op
+  antihax.check.forcefield:
+    description: Exempt from forcefield checks
+    default: op
+  antihax.check.fullbright:
+    description: Exempt from fullbright checks
+    default: op
+  antihax.check.highjump:
+    description: Exempt from high-jump checks
+    default: op
   antihax.check.hitself:
     description: Exempt from hit self checks
+    default: op
+  antihax.check.nuker:
+    description: Exempt from nuker checks
     default: op
   antihax.check.reach:
     description: Exempt from reach checks

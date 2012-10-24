@@ -1,4 +1,4 @@
-AntiHax 0.24b README
+AntiHax 0.3b README
 =============================
 
 Websites:
@@ -21,7 +21,13 @@ Hacks Blocked:
   - Sprinting Without Food
   - Flying
   - Hitting Yourself
-  - Cursing (Chat | Next Update)
+  - Cursing (Chat)
+  - Forcefield
+  - AutoEnchant
+  - FullBright
+  - DropInventory
+  - Nuker
+  - HighJump/Step/Spider
 
 Mods Blocked:
   - CJB
