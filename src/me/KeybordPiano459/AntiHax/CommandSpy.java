@@ -1,4 +1,4 @@
-package me.KeybordPiano459.AntiHax.commands;
+package me.KeybordPiano459.AntiHax;
 
 import java.util.logging.Logger;
 

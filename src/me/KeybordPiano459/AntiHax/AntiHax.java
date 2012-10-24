@@ -6,48 +6,42 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
+import me.KeybordPiano459.AntiHax.checks.blockevents.Fullbright;
+import me.KeybordPiano459.AntiHax.checks.blockevents.Nuker;
 import me.KeybordPiano459.AntiHax.checks.blockevents.Reach;
 import me.KeybordPiano459.AntiHax.checks.chat.Cursing;
+import me.KeybordPiano459.AntiHax.checks.fight.Forcefield;
 import me.KeybordPiano459.AntiHax.checks.fight.HitSelf;
+import me.KeybordPiano459.AntiHax.checks.inventory.AutoEnchant;
+import me.KeybordPiano459.AntiHax.checks.inventory.DropInv;
 import me.KeybordPiano459.AntiHax.checks.mods.CJB;
 import me.KeybordPiano459.AntiHax.checks.mods.REI;
 import me.KeybordPiano459.AntiHax.checks.mods.Zombe;
 import me.KeybordPiano459.AntiHax.checks.movement.Flight;
+import me.KeybordPiano459.AntiHax.checks.movement.HighJump;
 import me.KeybordPiano459.AntiHax.checks.movement.SprintNoFood;
 import me.KeybordPiano459.AntiHax.checks.movement.WalkOnWater;
-import me.KeybordPiano459.AntiHax.commands.CommandSpy;
 import me.KeybordPiano459.AntiHax.util.Metrics;
 import me.KeybordPiano459.AntiHax.util.UpdateEvent;
 import me.KeybordPiano459.AntiHax.util.UpdateNotifier;
 
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class AntiHax extends JavaPlugin {
 	
 	public static boolean update;
-	public Map<String, Integer> playerHackAmt = new HashMap<String, Integer>();
 	private Date now = new Date();
 	private SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-	
-	public static int cursing;
-	public static int flight;
-	public static int hitself;
-	public static int reach;
-	public static int sprintnofood;
-	public static int walkonwater;
 	
 	public void onEnable() {
 		getLogger().info("AntiHax 0.3b has been enabled!");
 		
 		registerEvents();
 		UpdateNotifier.updateNotifier();
-		Bukkit.getServer().getPluginCommand("spy").setExecutor(new CommandSpy());
+		//Bukkit.getServer().getPluginCommand("check").setExecutor(new ViolationCommand());
+		//Bukkit.getServer().getPluginCommand("spy").setExecutor(new CommandSpy());
 		
 		getConfig().options().copyDefaults(true);
 		saveConfig();
@@ -71,12 +65,16 @@ public class AntiHax extends JavaPlugin {
 		pm.registerEvents(new PlayerLogin(this), this);
 		
 		//Block Event Checks
+		pm.registerEvents(new Nuker(this), this); // Also blocks 'smasher'
+		pm.registerEvents(new Fullbright(this), this);
+		pm.registerEvents(new HighJump(), this); // Also blocks 'step' and maybe 'spider'
 		pm.registerEvents(new Reach(this), this);
 		
 		//Chat
 		pm.registerEvents(new Cursing(this), this);
 		
 		//Fight Checks
+		pm.registerEvents(new Forcefield(this), this);
 		pm.registerEvents(new HitSelf(this), this);
 		
 		//Misc
@@ -92,15 +90,11 @@ public class AntiHax extends JavaPlugin {
 		pm.registerEvents(new WalkOnWater(this), this);
 		pm.registerEvents(new SprintNoFood(this), this);
 		
+		//Inventory
+		pm.registerEvents(new AutoEnchant(this), this);
+		pm.registerEvents(new DropInv(), this);
+		
 		if(update){pm.registerEvents(new UpdateEvent(),this);}
-	}
-	
-	public void violate(Player player, int violation) {
-		playerHackAmt.put(player.getName(), playerHackAmt.get(player.getName()) - violation);
-		if (playerHackAmt.get(player.getName()) == 0) {
-			 player.kickPlayer("You have hacked too much.");
-			 player.setBanned(true);
-		}
 	}
 	
 	public boolean TagAPI() {
