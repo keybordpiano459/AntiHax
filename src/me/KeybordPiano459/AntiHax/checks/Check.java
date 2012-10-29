@@ -2,18 +2,10 @@ package me.KeybordPiano459.AntiHax.checks;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Logger;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
-import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.Plugin;
 
 public class Check {
@@ -31,11 +23,11 @@ public class Check {
 		}
 		
 		violation.put(player.getName(), 10);
-		ViolationAmount(player);
+		CheckViolation(player);
 	}
 	
 	public static void TellPlayer(Player player, String msg) {
-		player.sendMessage(msg.toLowerCase()); //Send player message
+		player.sendMessage(msg); //Send player message
 		
 		Player[] players = Bukkit.getServer().getOnlinePlayers(); //Get all online players
 		for (Player p : players) {
@@ -45,58 +37,21 @@ public class Check {
 		}
 		
 		violation.put(player.getName(), 5);
-		ViolationAmount(player);
+		CheckViolation(player);
 	}
 	
-	public static void ViolationAmount(Player player) {
+	public static void CheckViolation(Player player) {
+		
+		//Checks if violation amount is too high - If it is, set it to 50
 		if (violation.get(player.getName()) > 50) {
 			violation.put(player.getName(), -(violation.get(player.getName()) - 50));
 		}
-	}
-	
-	public class PlayerLogin implements Listener {
-		@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled=true)
-		public void onJoin(PlayerJoinEvent event) {
-			Player player = event.getPlayer();
-			if (player.hasPlayedBefore() == false) {
-				violation.put(player.getName(), 50);
-			}
+		
+		//Checks if violation amount is zero - If so, ban the player
+		if (violation.get(player.getName()) == 0) {
+			player.setBanned(true);
+			player.kickPlayer("You have hacked too much!");
 		}
-	}
-	
-	public class ViolationCommand implements CommandExecutor {
-		Logger log = Logger.getLogger("Minecraft");
-		public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
-			if (cmd.getName().equalsIgnoreCase("check")) {
-				if (sender instanceof Player) {
-					Player player = (Player) sender;
-					if (args.length == 0) {
-						player.sendMessage("[" + ChatColor.RED + "AntiHax" + ChatColor.RESET + "] Your hack amount is " + violation.get(player.getName()));
-					} else if (args.length == 1) {
-						Player target = sender.getServer().getPlayer(args[0]);
-						if (violation.get(target.getName()) != null) {
-							player.sendMessage("[" + ChatColor.RED + "AntiHax" + ChatColor.RESET + "] " + target.getDisplayName() + "'s violation amount is " + violation.get(target.getName()));
-						} else {
-							player.sendMessage("[" + ChatColor.RED + "AntiHax" + ChatColor.RESET + "] " + args[0] + "doesn't have a violation amount or hasn't logged on to this server.");
-						}
-					} else {
-						player.sendMessage("[" + ChatColor.RED + "AntiHax" + ChatColor.RESET + "] Incorrect usage! Type /check [player]");
-					}
-				} else {
-					if (args.length == 1) {
-						Player target = sender.getServer().getPlayer(args[0]);
-						if (violation.get(target.getName()) != null) {
-							log.info("[AntiHax] " + target.getDisplayName() + "'s violation amount is " + violation.get(target.getName()));
-						} else {
-							log.info("[AntiHax] " + args[0] + " doesn't have a violation amount or hasn't logged on to this server.");
-						}
-					} else {
-						log.info("[AntiHax] Incorrect usage! Type /check <player>");
-					}
-				}
-				return true;
-			}
-			return false;
-		}
+		
 	}
 }

@@ -17,9 +17,6 @@ public class PlayerLogin implements Listener {
 	public void onPlayerLogin(PlayerLoginEvent event) {
 		Player player = event.getPlayer();
 		plugin.logPlayerLogin(player.getDisplayName() + " joined.");
-		/*if (player.hasPlayedBefore() == false) {
-			plugin.playerHackAmt.put(player.getName(), plugin.playerHackAmt.get(player.getName()) + 10);
-		}*/
 	}
 	
 	@EventHandler(priority = EventPriority.HIGHEST)
