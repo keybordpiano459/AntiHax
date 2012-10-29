@@ -13,10 +13,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
-<<<<<<< HEAD
-=======
 import org.bukkit.event.player.PlayerKickEvent;
->>>>>>> Improved Nuker Check
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
@@ -29,16 +26,6 @@ public class Nuker extends Check implements Listener {
     Map<String, Integer> blocks = new HashMap<String, Integer>();
     
     @EventHandler(priority = EventPriority.MONITOR)
-<<<<<<< HEAD
-    public void onPlayerLogin(PlayerLoginEvent event){
-    	String player = event.getPlayer().getName();
-    	blocks.put(player, 0);
-    }
-    
-    @EventHandler(priority = EventPriority.MONITOR)
-    public void onPlayerLogoff(PlayerQuitEvent event){
-    	String player = event.getPlayer().getName();
-=======
     public void onPlayerLogin(PlayerLoginEvent event) {
     	Player player = event.getPlayer();
     	blocks.put(player.getName(), 0);
@@ -53,7 +40,6 @@ public class Nuker extends Check implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onPlayerKick(PlayerKickEvent event) {
     	Player player = event.getPlayer();
->>>>>>> Improved Nuker Check
     	blocks.remove(player);
     }
     
@@ -66,6 +52,7 @@ public class Nuker extends Check implements Listener {
 				TellPlayer(player, "[" + ChatColor.RED + "AntiHax" + ChatColor.RESET + "] You broke blocks too quickly!");
 			}
 		}
+		
 		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 		   	public void run() {
 		   		Player player = event.getPlayer();
@@ -75,9 +62,4 @@ public class Nuker extends Check implements Listener {
 		   	}
 		}, 1L);
 	}
-<<<<<<< HEAD
-	
 }
-=======
-}
->>>>>>> Improved Nuker Check
