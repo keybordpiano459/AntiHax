@@ -25,7 +25,7 @@ public class Forcefield extends Check implements Listener {
 		if (!player.hasPermission("antihax.check.forcefield")) {
 			if (eye != loc) {
 				event.setCancelled(true);
-				PlayerKick(player, plugin, "Don't use forcefield!", "tried to use forcefield");
+				TellPlayer(player, "Don't use forcefield!");
 			}
 		}
 	}
