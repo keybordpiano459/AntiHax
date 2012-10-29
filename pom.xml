@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <project>
 	<name>AntiHax</name>
-	<version>0.3b</version>
+	<version>0.31b</version>
 	<url>http://keybordpiano459.info/antihax/</url>
 	<description>Stopping those hacks on your Bukkit server</description>
 	<dependency>craftbukkit1.3.2-R1.0</dependency>
