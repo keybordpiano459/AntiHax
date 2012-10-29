@@ -26,7 +26,7 @@ public class Actions implements Listener {
 		} else if (playergamemode == GameMode.ADVENTURE) {
 			gamemode = "adventure";
 		}
-		plugin.logAction(player.getDisplayName() + " has changed gamemodes to " + gamemode);
+		plugin.logAction(player.getDisplayName() + " has changed their gamemode to " + gamemode);
 	}
 	
 	@EventHandler(priority = EventPriority.HIGHEST)
