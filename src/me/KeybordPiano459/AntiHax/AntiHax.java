@@ -7,24 +7,13 @@ import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import me.KeybordPiano459.AntiHax.checks.blockevents.Fullbright;
-import me.KeybordPiano459.AntiHax.checks.blockevents.Nuker;
-import me.KeybordPiano459.AntiHax.checks.blockevents.Reach;
-import me.KeybordPiano459.AntiHax.checks.chat.Cursing;
-import me.KeybordPiano459.AntiHax.checks.fight.Forcefield;
-import me.KeybordPiano459.AntiHax.checks.fight.HitSelf;
-import me.KeybordPiano459.AntiHax.checks.inventory.AutoEnchant;
-import me.KeybordPiano459.AntiHax.checks.inventory.DropInv;
-import me.KeybordPiano459.AntiHax.checks.mods.CJB;
-import me.KeybordPiano459.AntiHax.checks.mods.REI;
-import me.KeybordPiano459.AntiHax.checks.mods.Zombe;
-import me.KeybordPiano459.AntiHax.checks.movement.Flight;
-import me.KeybordPiano459.AntiHax.checks.movement.HighJump;
-import me.KeybordPiano459.AntiHax.checks.movement.SprintNoFood;
-import me.KeybordPiano459.AntiHax.checks.movement.WalkOnWater;
-import me.KeybordPiano459.AntiHax.util.Metrics;
-import me.KeybordPiano459.AntiHax.util.UpdateEvent;
-import me.KeybordPiano459.AntiHax.util.UpdateNotifier;
+import me.KeybordPiano459.AntiHax.checks.*;
+import me.KeybordPiano459.AntiHax.checks.blockevents.*;
+import me.KeybordPiano459.AntiHax.checks.chat.*;
+import me.KeybordPiano459.AntiHax.checks.inventory.*;
+import me.KeybordPiano459.AntiHax.checks.mods.*;
+import me.KeybordPiano459.AntiHax.checks.movement.*;
+import me.KeybordPiano459.AntiHax.util.*;
 
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -33,10 +22,10 @@ public class AntiHax extends JavaPlugin {
 	
 	public static boolean update;
 	private Date now = new Date();
-	private SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+	private SimpleDateFormat format = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
 	
 	public void onEnable() {
-		getLogger().info("AntiHax 0.3b has been enabled!");
+		getLogger().info("AntiHax 0.31b has been enabled!");
 		
 		registerEvents();
 		UpdateNotifier.updateNotifier();
@@ -55,7 +44,7 @@ public class AntiHax extends JavaPlugin {
 	}
 	
 	public void onDisable() {
-		getLogger().info("AntiHax 0.3b has been disabled.");
+		getLogger().info("AntiHax 0.31b has been disabled.");
 	}
 	
 	public void registerEvents() {
@@ -64,28 +53,30 @@ public class AntiHax extends JavaPlugin {
 		pm.registerEvents(new Actions(this), this);
 		pm.registerEvents(new PlayerLogin(this), this);
 		
-		//Block Event Checks
+		//Block Events
 		pm.registerEvents(new Nuker(this), this); // Also blocks 'smasher'
 		pm.registerEvents(new Fullbright(this), this);
-		pm.registerEvents(new HighJump(), this); // Also blocks 'step' and maybe 'spider'
+		pm.registerEvents(new HighJump(), this); // Also blocks 'step'
 		pm.registerEvents(new Reach(this), this);
 		
 		//Chat
 		pm.registerEvents(new Cursing(this), this);
 		
-		//Fight Checks
-		pm.registerEvents(new Forcefield(this), this);
-		pm.registerEvents(new HitSelf(this), this);
+		//Fight
+		//pm.registerEvents(new Forcefield(this), this); Figure out why event is cancelled if player hits mob directly
+		//pm.registerEvents(new HitSelf(this), this); Figure out why whenever a bow hits another entity it prints a stack trace
 		
 		//Misc
+		pm.registerEvents(new ViolationLogin(), this);
 		if(TagAPI()){pm.registerEvents(new AdminTag(), this);}
+		if(update){pm.registerEvents(new UpdateEvent(),this);}
 		
 		//Mods
 		pm.registerEvents(new CJB(), this);
 		pm.registerEvents(new REI(), this);
 		pm.registerEvents(new Zombe(), this);
 		
-		//Movement Checks
+		//Movement
 		pm.registerEvents(new Flight(this), this);
 		pm.registerEvents(new WalkOnWater(this), this);
 		pm.registerEvents(new SprintNoFood(this), this);
@@ -93,8 +84,6 @@ public class AntiHax extends JavaPlugin {
 		//Inventory
 		pm.registerEvents(new AutoEnchant(this), this);
 		pm.registerEvents(new DropInv(), this);
-		
-		if(update){pm.registerEvents(new UpdateEvent(),this);}
 	}
 	
 	public boolean TagAPI() {
