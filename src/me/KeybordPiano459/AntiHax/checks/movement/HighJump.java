@@ -19,8 +19,8 @@ public class HighJump extends Check implements Listener {
 		double fromy = from.getY();
 		double toy = to.getY();
 		if (!player.hasPermission("antihax.check.highjump")) {
-			if (fromy - toy >= 2 || toy - fromy >= 2) {
-				event.setCancelled(true);
+			if (fromy - toy >= 2 && fromy > toy || toy - fromy >= 2 && fromy > toy) {
+				player.teleport(from);
 				TellPlayer(player, "[" + ChatColor.RED + "AntiHax" + ChatColor.RESET + "] You went up too quickly!");
 			}
 		}
