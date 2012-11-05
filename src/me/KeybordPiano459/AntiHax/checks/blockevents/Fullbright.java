@@ -1,23 +1,22 @@
 package me.KeybordPiano459.AntiHax.checks.blockevents;
 
 import me.KeybordPiano459.AntiHax.AntiHax;
-import me.KeybordPiano459.AntiHax.checks.Check;
+import me.KeybordPiano459.AntiHax.listeners.BaseListener;
 
 import org.bukkit.ChatColor;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
-import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 
-public class Fullbright extends Check implements Listener {
-	AntiHax plugin;
-    public Fullbright(AntiHax plugin) {
-        this.plugin = plugin;
-    }
-    
+public class Fullbright extends BaseListener {
+	
+	public Fullbright(AntiHax instance) {
+		super(instance);
+	}
+
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onBreak(BlockBreakEvent event) {
 		Player player = event.getPlayer();
@@ -26,7 +25,7 @@ public class Fullbright extends Check implements Listener {
 		if (!player.hasPermission("antihax.check.fullbright")) {
 			if (light > 2) {
 				event.setCancelled(true);
-				TellPlayer(player, "[" + ChatColor.RED + "AntiHax" + ChatColor.RESET + "] It's too dark here. You should probably place a torch or two.");
+				tellPlayer(player, "[" + ChatColor.RED + "AntiHax" + ChatColor.RESET + "] It's too dark here. You should probably place a torch or two.");
 			}
 		}
 	}
@@ -39,7 +38,7 @@ public class Fullbright extends Check implements Listener {
 		if (!player.hasPermission("antihax.check.fullbright")) {
 			if (light > 3) {
 				event.setCancelled(true);
-				TellPlayer(player, "[" + ChatColor.RED + "AntiHax" + ChatColor.RESET + "] It's too dark here. You should probably place a torch or two.");
+				tellPlayer(player, "[" + ChatColor.RED + "AntiHax" + ChatColor.RESET + "] It's too dark here. You should probably place a torch or two.");
 			}
 		}
 	}

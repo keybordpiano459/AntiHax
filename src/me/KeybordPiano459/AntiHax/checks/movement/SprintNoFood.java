@@ -1,20 +1,19 @@
 package me.KeybordPiano459.AntiHax.checks.movement;
 
 import me.KeybordPiano459.AntiHax.AntiHax;
-import me.KeybordPiano459.AntiHax.checks.Check;
+import me.KeybordPiano459.AntiHax.listeners.BaseListener;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
-import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerToggleSprintEvent;
 
-public class SprintNoFood extends Check implements Listener {
-	AntiHax plugin;
-    public SprintNoFood(AntiHax plugin) {
-        this.plugin = plugin;
+public class SprintNoFood extends BaseListener {
+	
+    public SprintNoFood(AntiHax instance) {
+        super(instance);
     }
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onSprint(final PlayerToggleSprintEvent event) {
@@ -26,7 +25,7 @@ public class SprintNoFood extends Check implements Listener {
 					public void run() {
 						if (6 >= food) {
 							event.setCancelled(true);
-							TellPlayer(player, "[" + ChatColor.RED + "AntiHax" + ChatColor.RESET + "] You sprinted without enough food!");
+							tellPlayer(player, "[" + ChatColor.RED + "AntiHax" + ChatColor.RESET + "] You sprinted without enough food!");
 						}
 					}
 				}, 200L);

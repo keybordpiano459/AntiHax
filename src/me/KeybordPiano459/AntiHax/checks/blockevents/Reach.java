@@ -1,7 +1,7 @@
 package me.KeybordPiano459.AntiHax.checks.blockevents;
 
 import me.KeybordPiano459.AntiHax.AntiHax;
-import me.KeybordPiano459.AntiHax.checks.Check;
+import me.KeybordPiano459.AntiHax.listeners.BaseListener;
 
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
@@ -9,16 +9,16 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
-import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
-public class Reach extends Check implements Listener {
-	AntiHax plugin;
-    public Reach(AntiHax plugin) {
-        this.plugin = plugin;
+public class Reach extends BaseListener {
+	
+    public Reach(AntiHax instance) {
+    	super(instance);
     }
+    
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onBlockBreak(BlockBreakEvent event) {
 		Block block = event.getBlock();
@@ -27,7 +27,7 @@ public class Reach extends Check implements Listener {
 		if (!player.hasPermission("antihax.check.reach")) {
 			if (distance > 6 && player.getGameMode() != GameMode.CREATIVE) {
 				event.setCancelled(true);
-				TellPlayer(player, "[" + ChatColor.RED + "AntiHax" + ChatColor.RESET + "] You reached too far!");
+				tellPlayer(player, "[" + ChatColor.RED + "AntiHax" + ChatColor.RESET + "] You reached too far!");
 			}
 		}
 	}
@@ -40,7 +40,7 @@ public class Reach extends Check implements Listener {
 		if (!player.hasPermission("antihax.check.reach")) {
 			if (distance > 6 && player.getGameMode() != GameMode.CREATIVE) {
 				event.setCancelled(true);
-				TellPlayer(player, "[" + ChatColor.RED + "AntiHax" + ChatColor.RESET + "] You reached too far!");
+				tellPlayer(player, "[" + ChatColor.RED + "AntiHax" + ChatColor.RESET + "] You reached too far!");
 			}
 		}
 	}
@@ -51,7 +51,7 @@ public class Reach extends Check implements Listener {
 		if (!player.hasPermission("antihax.check.reach")) {
 			if (distance > 6 && player.getGameMode() != GameMode.CREATIVE) {
 				event.setCancelled(true);
-				TellPlayer(player, "[" + ChatColor.RED + "AntiHax" + ChatColor.RESET + "] You reached too far!");
+				tellPlayer(player, "[" + ChatColor.RED + "AntiHax" + ChatColor.RESET + "] You reached too far!");
 			}
 		}
 	}

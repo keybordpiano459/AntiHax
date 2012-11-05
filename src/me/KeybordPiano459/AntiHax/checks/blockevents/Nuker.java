@@ -4,26 +4,25 @@ import java.util.HashMap;
 import java.util.Map;
 
 import me.KeybordPiano459.AntiHax.AntiHax;
-import me.KeybordPiano459.AntiHax.checks.Check;
+import me.KeybordPiano459.AntiHax.listeners.BaseListener;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
-import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-public class Nuker extends Check implements Listener {
-	AntiHax plugin;
-    public Nuker(AntiHax plugin) {
-        this.plugin = plugin;
-    }
+public class Nuker extends BaseListener {
     
-    Map<String, Integer> blocks = new HashMap<String, Integer>();
+    public Nuker(AntiHax instance) {
+		super(instance);
+	}
+
+	Map<String, Integer> blocks = new HashMap<String, Integer>();
     
     @EventHandler(priority = EventPriority.MONITOR)
     public void onPlayerLogin(PlayerLoginEvent event) {
@@ -49,7 +48,7 @@ public class Nuker extends Check implements Listener {
 		blocks.put(player.getName(), blocks.get(player.getName())+1);
 		if (!player.hasPermission("antihax.check.nuker")) {
 			if (blocks.get(player.getName()) > 1) {
-				TellPlayer(player, "[" + ChatColor.RED + "AntiHax" + ChatColor.RESET + "] You broke blocks too quickly!");
+				tellPlayer(player, "[" + ChatColor.RED + "AntiHax" + ChatColor.RESET + "] You broke blocks too quickly!");
 			}
 		}
 		

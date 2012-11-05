@@ -1,7 +1,7 @@
 package me.KeybordPiano459.AntiHax.checks.movement;
 
 import me.KeybordPiano459.AntiHax.AntiHax;
-import me.KeybordPiano459.AntiHax.checks.Check;
+import me.KeybordPiano459.AntiHax.listeners.BaseListener;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -10,14 +10,14 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
-import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 
-public class WalkOnWater extends Check implements Listener {
-	AntiHax plugin;
-    public WalkOnWater(AntiHax plugin) {
-        this.plugin = plugin;
-    }
+public class WalkOnWater extends BaseListener {
+	
+	public WalkOnWater(AntiHax instance) {
+		super(instance);
+	}
+	
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onMove(final PlayerMoveEvent event) {
 		final Player player = event.getPlayer();
@@ -30,7 +30,7 @@ public class WalkOnWater extends Check implements Listener {
 					public void run() {
 						if (block == Material.WATER) {
 							event.setCancelled(true);
-							TellPlayer(player, "[" + ChatColor.RED + "AntiHax" + ChatColor.RESET + "] You walked on water!");
+							tellPlayer(player, "[" + ChatColor.RED + "AntiHax" + ChatColor.RESET + "] You walked on water!");
 						}
 					}
 				}, 20L);
