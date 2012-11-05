@@ -10,6 +10,7 @@ import java.util.HashMap;
 
 import me.KeybordPiano459.AntiHax.checks.blockevents.*;
 import me.KeybordPiano459.AntiHax.checks.chat.*;
+import me.KeybordPiano459.AntiHax.checks.fight.*;
 import me.KeybordPiano459.AntiHax.checks.inventory.*;
 import me.KeybordPiano459.AntiHax.checks.mods.*;
 import me.KeybordPiano459.AntiHax.checks.movement.*;
@@ -56,14 +57,14 @@ public class AntiHax extends JavaPlugin {
 	
 	public void registerEvents() {
 		PluginManager pm = getServer().getPluginManager();
-		//Actions
-		pm.registerEvents(new Actions(this), this);
-		pm.registerEvents(new PlayerLogin(this), this);
+		//General Listeners
+		pm.registerEvents(new ActionsListener(this), this);
+		pm.registerEvents(new ViolationListener(this), this);
 		
 		//Block Events
 		pm.registerEvents(new Nuker(this), this); // Also blocks 'smasher'
 		pm.registerEvents(new Fullbright(this), this);
-		pm.registerEvents(new HighJump(), this); // Also blocks 'step'
+		pm.registerEvents(new HighJump(this), this); // Also blocks 'step'
 		pm.registerEvents(new Reach(this), this);
 		
 		//Chat
@@ -71,10 +72,9 @@ public class AntiHax extends JavaPlugin {
 		
 		//Fight
 		//pm.registerEvents(new Forcefield(this), this); Figure out why event is cancelled if player hits mob directly
-		//pm.registerEvents(new HitSelf(this), this); Figure out why whenever a bow hits another entity it prints a stack trace
+		pm.registerEvents(new HitSelf(this), this); //Fixed, Arrows are supposed to hit players.
 		
 		//Misc
-		pm.registerEvents(new ViolationListener(this), this);
 		if(TagAPI()){pm.registerEvents(new AdminTag(), this);}
 		if(update){pm.registerEvents(new UpdateEvent(),this);}
 		
@@ -90,7 +90,7 @@ public class AntiHax extends JavaPlugin {
 		
 		//Inventory
 		pm.registerEvents(new AutoEnchant(this), this);
-		pm.registerEvents(new DropInv(), this);
+		pm.registerEvents(new DropInv(this), this);
 	}
 	
 	public boolean TagAPI() {
