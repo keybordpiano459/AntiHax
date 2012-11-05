@@ -6,13 +6,16 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 
-import me.KeybordPiano459.AntiHax.checks.*;
 import me.KeybordPiano459.AntiHax.checks.blockevents.*;
 import me.KeybordPiano459.AntiHax.checks.chat.*;
+import me.KeybordPiano459.AntiHax.checks.fight.*;
 import me.KeybordPiano459.AntiHax.checks.inventory.*;
 import me.KeybordPiano459.AntiHax.checks.mods.*;
 import me.KeybordPiano459.AntiHax.checks.movement.*;
+import me.KeybordPiano459.AntiHax.commands.*;
+import me.KeybordPiano459.AntiHax.listeners.*;
 import me.KeybordPiano459.AntiHax.util.*;
 
 import org.bukkit.plugin.PluginManager;
@@ -24,13 +27,17 @@ public class AntiHax extends JavaPlugin {
 	private Date now = new Date();
 	private SimpleDateFormat format = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
 	
+	private HashMap<String, Boolean> hiddenPlayers = new HashMap<String, Boolean>();
+	private HashMap<String, Integer> violations = new HashMap<String, Integer>();
+	
 	public void onEnable() {
 		getLogger().info("AntiHax 0.31b has been enabled!");
 		
 		registerEvents();
 		UpdateNotifier.updateNotifier();
-		//Bukkit.getServer().getPluginCommand("check").setExecutor(new ViolationCommand());
-		//Bukkit.getServer().getPluginCommand("spy").setExecutor(new CommandSpy());
+		
+		getCommand("check").setExecutor(new CommandViolation(this));
+		getCommand("spy").setExecutor(new CommandSpy(this));
 		
 		getConfig().options().copyDefaults(true);
 		saveConfig();
@@ -40,6 +47,7 @@ public class AntiHax extends JavaPlugin {
 		    metrics.start();
 		} catch (IOException e) {
 		    // Failed to submit stats :-(
+			// That makes me sad panda :(
 		}
 	}
 	
@@ -49,14 +57,14 @@ public class AntiHax extends JavaPlugin {
 	
 	public void registerEvents() {
 		PluginManager pm = getServer().getPluginManager();
-		//Actions
-		pm.registerEvents(new Actions(this), this);
-		pm.registerEvents(new PlayerLogin(this), this);
+		//General Listeners
+		pm.registerEvents(new ActionsListener(this), this);
+		pm.registerEvents(new ViolationListener(this), this);
 		
 		//Block Events
 		pm.registerEvents(new Nuker(this), this); // Also blocks 'smasher'
 		pm.registerEvents(new Fullbright(this), this);
-		pm.registerEvents(new HighJump(), this); // Also blocks 'step'
+		pm.registerEvents(new HighJump(this), this); // Also blocks 'step'
 		pm.registerEvents(new Reach(this), this);
 		
 		//Chat
@@ -64,10 +72,9 @@ public class AntiHax extends JavaPlugin {
 		
 		//Fight
 		//pm.registerEvents(new Forcefield(this), this); Figure out why event is cancelled if player hits mob directly
-		//pm.registerEvents(new HitSelf(this), this); Figure out why whenever a bow hits another entity it prints a stack trace
+		pm.registerEvents(new HitSelf(this), this); //Fixed, Arrows are supposed to hit players.
 		
 		//Misc
-		pm.registerEvents(new ViolationLogin(), this);
 		if(TagAPI()){pm.registerEvents(new AdminTag(), this);}
 		if(update){pm.registerEvents(new UpdateEvent(),this);}
 		
@@ -83,7 +90,7 @@ public class AntiHax extends JavaPlugin {
 		
 		//Inventory
 		pm.registerEvents(new AutoEnchant(this), this);
-		pm.registerEvents(new DropInv(), this);
+		pm.registerEvents(new DropInv(this), this);
 	}
 	
 	public boolean TagAPI() {
@@ -124,5 +131,13 @@ public class AntiHax extends JavaPlugin {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public HashMap<String, Boolean> getHiddenPlayers() {
+		return hiddenPlayers;
+	}
+
+	public HashMap<String, Integer> getViolations() {
+		return violations;
 	}
 }

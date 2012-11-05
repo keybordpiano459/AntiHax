@@ -2,14 +2,14 @@ name: AntiHax
 main: me.KeybordPiano459.AntiHax.AntiHax
 version: 0.31b
 description: Stopping hacks on Minecraft.
-author: KeybordPiano459
+authors: [KeybordPiano459, EpicOkapi]
 softdepend: [TagAPI]
-#commands:
-#  check:
-#    description: Check Someone's Violation Amount
-#  spy:
-#    description: Spy on Another Player
-#    permission: antihax.spy
+commands:
+  check:
+    description: Check Someone's Violation Amount
+  spy:
+    description: Spy on Another Player
+    permission: antihax.spy
 permissions:
   antihax.*:
     description: Access to all AntiHax stuff
@@ -19,7 +19,7 @@ permissions:
       antihax.check.*: true
       antihax.mod.*: true
       antihax.notify: true
-#      antihax.spy: true
+      antihax.spy: true
       antihax.update: true
   antihax.admin:
     description: Have a red nametag
@@ -27,13 +27,12 @@ permissions:
   antihax.notify:
     description: Get notified when someone hacks
     default: op
-#  antihax.spy:
-#    description: Access to /spy
-#    default: op
+  antihax.spy:
+    description: Access to /spy
+    default: op
   antihax.update:
     description: Get notified when there's an update
     default: op
-
   antihax.check.*:
     description: Access to all checks
     default: op
@@ -86,7 +85,6 @@ permissions:
   antihax.check.walkonwater:
     description: Exempt from walk on water checks
     default: op
-
   antihax.mod.*:
     description: Access to all mods
     default: op
