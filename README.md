@@ -8,6 +8,7 @@ Websites:
 
 Developers:
   - KeybordPiano459
+  - EpicOkapi
 
 Report Bugs Here:
   - http://dev.bukkit.org/server-mods/antihax/tickets/
