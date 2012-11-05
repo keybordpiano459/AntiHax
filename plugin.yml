@@ -2,7 +2,8 @@ name: AntiHax
 main: me.KeybordPiano459.AntiHax.AntiHax
 version: 0.31b
 description: Stopping hacks on Minecraft.
-authors: [KeybordPiano459, EpicOkapi]
+author: KeybordPiano459
+authors: [EpicOkapi]
 softdepend: [TagAPI]
 commands:
   check:
