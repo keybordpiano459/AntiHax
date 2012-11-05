@@ -36,7 +36,7 @@ public class AntiHax extends JavaPlugin {
 		registerEvents();
 		UpdateNotifier.updateNotifier();
 		
-		getCommand("violation").setExecutor(new CommandViolation(this));
+		getCommand("check").setExecutor(new CommandViolation(this));
 		getCommand("spy").setExecutor(new CommandSpy(this));
 		
 		getConfig().options().copyDefaults(true);
