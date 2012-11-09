@@ -19,6 +19,10 @@ public class HitSelf extends BaseListener {
 
 	@EventHandler (priority = EventPriority.HIGHEST)
 	public void onEntityDmg(EntityDamageByEntityEvent event) {
+		if(!(event.getEntity() instanceof Player)){
+			return;
+		}
+		
 		Player player = (Player) event.getEntity();
 		Entity attacker = event.getDamager();
 		Entity victim = event.getEntity();
